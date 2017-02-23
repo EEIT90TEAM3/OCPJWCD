@@ -15,6 +15,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,9 +43,10 @@ public class LoginServlet extends HttpServlet {
         //1.讀取請求傳來的表單資料:userid,password,checkCode
         request.setCharacterEncoding("UTF-8");/*!重要,為了處理編碼問題*/
         String userid = request.getParameter("userid");
+        String auto = request.getParameter("auto");
         String password = request.getParameter("password");
         String checkCode = request.getParameter("checkCode");
-
+            
         //2.檢查資料
         List<String> errors = new ArrayList<>();
         // (userid=userid.trim())，要加小括號才是去空白
@@ -74,6 +76,20 @@ public class LoginServlet extends HttpServlet {
                 Customer c = service.login(userid, password);
                 /*登入成功驗證碼才刪掉*/
                 session.removeAttribute("ImageCheckServlet");
+                
+                /*以下為Cookie的示範*/
+                Cookie uidCookie =new Cookie("uid",userid);
+                Cookie autoCookie =new Cookie("auto","checked");
+                if(auto!=null){//要記住帳號
+                    uidCookie.setMaxAge(30*24*60*60);//有效期限30天，單位是秒!
+                    autoCookie.setMaxAge(30*24*60*60);
+                }else{
+                    uidCookie.setMaxAge(0);//立刻失效
+                    autoCookie.setMaxAge(0);
+                }
+                response.addCookie(uidCookie);
+                response.addCookie(autoCookie);
+                /*以上為Cookie*/
                 //4.1 forward畫面控制權交給login_ok.jsp
 //                RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
                 //把客戶資料塞到請求中!

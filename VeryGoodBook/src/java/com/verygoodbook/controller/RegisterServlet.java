@@ -104,10 +104,10 @@ public class RegisterServlet extends HttpServlet {
                 
                 session.removeAttribute("RegisterImageCheckServlet");
                 //4.1 註冊成功，將控制權redirect給HOME Page
-//                session.setAttribute("member", c);//uncomment此行表示: 註冊成功後立即登入
+                session.setAttribute("member", c);//uncomment此行表示: 註冊成功後立即登入
                 response.sendRedirect(request.getContextPath());       
                 return;
-                
+            //註冊重複    
             }catch(VGBException ex){
                 if(ex.getCause()!=null && ex.getCause() instanceof SQLException){
                     int errorCode = ((SQLException)ex.getCause()).getErrorCode();

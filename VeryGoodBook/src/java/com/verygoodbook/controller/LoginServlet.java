@@ -82,7 +82,7 @@ public class LoginServlet extends HttpServlet {
                 //forward轉交程式(把畫面控制權完全轉交)
 //                dispatcher.forward(request, response);
                   //轉交給首頁  
-                  response.sendRedirect(request.getContextPath());
+                response.sendRedirect(request.getContextPath());
                 return;
             } catch (VGBException ex) {
                 errors.add(ex.toString());

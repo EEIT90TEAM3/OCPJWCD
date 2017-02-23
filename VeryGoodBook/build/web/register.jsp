@@ -1,3 +1,4 @@
+<%@page import="com.verygoodbook.entity.Customer"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <!--
@@ -30,6 +31,7 @@ and open the template in the editor.
             <p>
                 <label for="uid">會員帳號</label>
                 <input type="text" name="userid" id="uid" placeholder="請輸入身分證字號"
+                       value="<%= request.getParameter("userid")==null?"":request.getParameter("userid") %>"
                        required pattern="[A-Z][12][0-9]{8}">
             </p> 
             <p>
@@ -40,40 +42,46 @@ and open the template in the editor.
             </p>
             <p>
                 <label for="name">會員姓名</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" 
+                       value="<%= request.getParameter("name")==null?"":request.getParameter("name") %>"
+                       id="name">
             </p> 
             <p>
                 <label for="email">電子郵件</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email"
+                       value="<%= request.getParameter("email")==null?"":request.getParameter("email") %>"
+                       id="email">
             </p>
             <p>
                 <label for="gender">會員性別</label>
-                <input type="radio" name="gender" id="male" value="M" checked> 男
-                <input type="radio" name="gender" id="female" value="F">女<br>
-                <!--<select name='gender' id='gender'>
-                    <option value=''></option>
-                    <option value='M'>男</option>
-                    <option value='F'>女</option>
-                </select>-->
+                <input type='radio' name='gender' value='M' id='male' required 
+                       <%= request.getParameter("gender")==null || 
+                               (request.getParameter("gender").charAt(0)==Customer.FEMALE) ?"":"checked"%>><label for='male'>男</label>
+                <input type='radio' name='gender' value='F' id='female' required
+                       <%= request.getParameter("gender")==null || 
+                               (request.getParameter("gender").charAt(0)==Customer.MALE) ?"":"checked"%>
+                       ><label for='female'>女</label>
             </p>
             <p>
                 <label for="birthday">出生日期</label>
-                <input type="date" name="birthday" id="birthday">
-                <!--測試用，自己的想法-->
-                <!--                <input type="text" name="birthday" id="birthday" placeholder="請參照yyyy-MM-dd" 
-                                       required pattern="[1-2][0-9]{3}[-][0-1][0-9][-][0-3][0-9]">-->
+                <input type="date" name="birthday" id="birthday"
+                       value="<%= request.getParameter("birthday")==null?"":request.getParameter("birthday") %>">
+               
             </p>
             <p>
                 <label for="phone">聯絡電話</label>
-                <input type="tel" name="phone" id="phone">
+                <input type="tel" name="phone" id="phone"
+                       value="<%= request.getParameter("phone")==null?"":request.getParameter("phone") %>">
             </p>
             <p>
                 <label for="address">聯絡地址</label>
-                <input type="text" name="address" id="address">
+                <input type="text" name="address" id="address"
+                       value="<%= request.getParameter("address")==null?"":request.getParameter("address") %>">
             </p>
             <p>
                 <label for='married'>婚姻狀況:</label>
-                <input type='checkbox' name='married' id='married'><label for='married'>已婚</label>
+                <input type='checkbox' name='married' id='married'
+                       <%= request.getParameter("married")==null?"":"checked" %>><label for='married'>已婚</label>
             </p>
             <p>
                 <!--發送圖片請求-->
@@ -83,7 +91,9 @@ and open the template in the editor.
                 </a>
 
                 <label for="check_code">驗證碼</label>
-                <input type="text" name="checkCode" id="check_code">
+                <input type="text" name="checkCode" 
+                       value="<%= request.getParameter("checkCode")==null?"":request.getParameter("checkCode") %>"
+                       id="check_code">
                 <script>
                     function refreshImage() {
                         var myImg = document.getElementById("check_img");

@@ -27,7 +27,7 @@
         <h1>會員登入</h1>
         <hr>        
         <a <%= request.getContextPath() %> >Home</a>
-        <a href="<%= request.getContextPath() %>/register.html">會員註冊</a>
+        <a href="<%= request.getContextPath() %>/register.jsp">會員註冊</a>
         <a href="<%= request.getContextPath() %>/login.jsp">會員登入</a>
         <a href="<%= request.getContextPath() %>/product_list.jsp">產品清單</a>
         <hr>

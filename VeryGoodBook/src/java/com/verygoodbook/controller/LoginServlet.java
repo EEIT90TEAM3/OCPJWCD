@@ -86,6 +86,9 @@ public class LoginServlet extends HttpServlet {
                 return;
             } catch (VGBException ex) {
                 errors.add(ex.toString());
+            }catch(Exception ex){
+                this.log("客戶登入發生非預期錯誤",ex);
+                errors.add(ex.getMessage());
             }
 
         }

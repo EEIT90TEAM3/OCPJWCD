@@ -20,7 +20,7 @@ public class RDBConnection {
     private static final String url = "jdbc:mysql://localhost:3306/vgb?zeroDateTimeBehavior=convertToNull";
     private static final String userid = "root";
     private static final String pwd = "1234";
-
+    public static final int DUPLICATE_ENTRY_ERROR_CODE=1062;//主鍵值重複
     public static Connection getConnection() throws VGBException{
         try {
             //1. 載入Driver

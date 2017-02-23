@@ -1,10 +1,11 @@
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
         <title>會員註冊</title>
@@ -19,7 +20,13 @@ and open the template in the editor.
         <a href="/vgb/login.jsp">會員登入</a>
         <a href="/vgb/product_list.jsp">產品清單</a>
         <hr>
-        <form action="login.do" method="POST">
+        <%
+            List<String> errors = (List<String>)request.getAttribute("errors");
+            if(errors!=null){
+        %>
+            <%= errors%>
+        <%}%>
+        <form action="register.do" method="POST">
             <p>
                 <label for="uid">會員帳號</label>
                 <input type="text" name="userid" id="uid" placeholder="請輸入身分證字號"
@@ -85,7 +92,7 @@ and open the template in the editor.
                     }
                 </script>
             </p>    
-            <input type="submit" value="確定登入" name="submit">
+            <input type="submit" value="確定註冊" name="submit">
         </form>    
     </body>
 </html>

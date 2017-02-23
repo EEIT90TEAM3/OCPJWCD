@@ -23,7 +23,7 @@
             function doneHandler(result) {
                 alert("已登出成功!");
                 $("#member-span").text("您好!");
-                $("#member-span").html('<a href="<%= request.getContextPath()%>/register.html">會員註冊</a>|' +
+                $("#member-span").html('<a href="<%= request.getContextPath()%>/register.jsp">會員註冊</a>|' +
                         ' <a href="<%= request.getContextPath()%>/login.jsp">會員登入</a>|');
             }
         </script>
@@ -42,7 +42,7 @@
                     Customer member = (Customer) session.getAttribute("member");
                     if (member == null) {
                 %>
-                <a href="<%= request.getContextPath()%>/register.html">會員註冊</a>|
+                <a href="<%= request.getContextPath()%>/register.jsp">會員註冊</a>|
                 <a href="<%= request.getContextPath()%>/login.jsp">會員登入</a>|
                 <% } else {%>
                 <a href="<%= request.getContextPath()%>/member/update.jsp">會員修改</a>|

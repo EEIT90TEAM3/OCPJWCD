@@ -65,7 +65,17 @@
             </audio>
         </div>
         <div id="footer">
-            <address>版權所有 &copy; 非常好書</address>
+            <hr>
+            <%
+               //以下為拜訪人次之灌水程式 
+               Integer counter= (Integer)application.getAttribute("app.vistiors.counter");
+               if(counter==null){
+                   counter=16800;
+               }
+               application.setAttribute("app.vistiors.counter",++counter);
+               //以上為拜訪人次之灌水程式
+            %>
+           版權所有 &copy; 非常好書<span>拜訪人次:<%= application.getAttribute("app.vistiors.counter") %></span>
         </div>
     </body>
 </html>

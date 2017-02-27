@@ -46,6 +46,7 @@ public class Customer implements Comparable {
     }
 
     public Customer(String id, String password, String name) {
+        
         this.id = id;
         this.name = name;
         this.password = password;

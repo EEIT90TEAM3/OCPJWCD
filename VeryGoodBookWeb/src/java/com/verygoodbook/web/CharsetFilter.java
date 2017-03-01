@@ -6,6 +6,7 @@
 package com.verygoodbook.web;
 
 import java.io.IOException;
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -20,7 +21,8 @@ import javax.servlet.annotation.WebInitParam;
  * @author Administrator
  */
 @WebFilter(filterName = "CharsetFilter", urlPatterns = {"*.jsp", "*.view", "*.do"}, 
-        initParams = {@WebInitParam(name = "charset", value = "UTF-8")})
+        initParams = {@WebInitParam(name = "charset", value = "UTF-8")}, 
+        dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.ERROR} )
 public class CharsetFilter implements Filter {
     private static final String default_charset = "UTF-8";
     private FilterConfig filterConfig;

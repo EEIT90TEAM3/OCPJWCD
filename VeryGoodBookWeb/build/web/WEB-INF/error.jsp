@@ -29,7 +29,7 @@
             <jsp:param name="subtitle" value="系統錯誤"/>
         </jsp:include>
         <div id="article">
-        <p style='font-size:80%'>執行<span style='color:darkred'><%= request.getRequestURI()%></span>時發生下列錯誤：<br/>
+        <p style='font-size:80%'>執行<span style='color:darkred'>${requestScope["javax.servlet.error.request_uri"]}</span>時發生下列錯誤：<br/>
             <% if (exception!=null){          
                 out.println(exception.getClass().getName() + ":\t" +exception.getMessage());%>
                 <a href="javascript:show_details()">details...</a><br/>
@@ -38,7 +38,14 @@
                 exception.printStackTrace(new java.io.PrintWriter(out));
                 %>
             </span>
-            <% } %>          
+            <% }else{ 
+                Integer code = (Integer)request.getAttribute("javax.servlet.error.status_code");
+                if(code!=null && code.intValue()==404){
+            %>
+            <img src="<%= request.getContextPath() %>/images/404.jpg"
+                
+            <%}
+            }%>
         </p>
         </div>
         <%@include  file="/WEB-INF/subviews/footer.jsp" %>

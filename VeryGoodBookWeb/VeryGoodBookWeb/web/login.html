@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>會員登入</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function refreshImage(){
+                var myImg = document.getElementById("check_img");
+                myImg.src = "images/check.jpg?get=" + new Date();
+            }
+        </script>
+    </head>
+    <body>
+        <h1>非常好書 <sub>會員登入</sub></h1>        
+        <hr>
+        <a href="index.html">Home</a> | 
+        <a href="register.jsp">會員註冊</a> | 
+        <a href="login.html">會員登入</a> | 
+        <a href="products_list.html">產品清單</a> | 
+        <hr>
+
+        <form action='login.do' method='POST'>
+            <!--<div name='hello'>Hello</div>--> 
+            <p>
+                <label for='uid'>會員帳號:</label>
+                <input type='text' name='userid' id='uid' required>
+            </p>
+            <p>
+                <label for='pwd'>會員密碼:</label>
+                <input type='password' name='password' id='pwd' required>
+            </p>
+            <p>
+                <a href="javascript:refreshImage()"  title='點選即可更新圖片'>
+                    <img src='images/check.jpg' id='check_img'>
+                </a>
+                <label for='check_code'>驗證碼:</label>
+                <input type='text' name='checkCode' id='check_code' required>
+            </p>
+            <input type='submit' value='確定登入'>
+        </form>
+
+    </body>
+</html>

@@ -12,42 +12,44 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author Administrator
  */
-@WebFilter(filterName = "CharsetFilter", urlPatterns = {"*.jsp", "*.view", "*.do"}, 
-        initParams = {@WebInitParam(name = "charset", value = "UTF-8")})
-public class CharsetFilter implements Filter {
-    private static final String default_charset = "UTF-8";
+public class PerformanceFilter implements Filter {
     private FilterConfig filterConfig;
+    private static final String defaultPrefix = "Perforamnce: ";
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        this.filterConfig = filterConfig;
+        this.filterConfig = filterConfig;        
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String charset = this.filterConfig.getInitParameter("charset");
-        if (charset==null){
-            charset = default_charset;
+        String prefix = filterConfig.getInitParameter("prefix");
+        if(prefix==null){
+            prefix = defaultPrefix;
         }
         
-        request.setCharacterEncoding(charset);
-        request.getParameterNames();
+        long begin = System.currentTimeMillis();
         
-        response.setCharacterEncoding(charset);
-        response.getWriter();        
-        
-        //以上程式為前置處理...
         chain.doFilter(request, response);
-        //以下程式為後續處理...        
+        
+        long end = System.currentTimeMillis();
+        
+        StringBuffer sb = new StringBuffer(prefix);
+        sb.append(((HttpServletRequest)request).getRequestURI());
+        sb.append("共花了");
+        sb.append(end-begin);
+        sb.append(" ms");
+        
+        this.filterConfig.getServletContext().log(sb.toString());
     }
 
     @Override
-    public void destroy() {}    
+    public void destroy() {
+    }
 }

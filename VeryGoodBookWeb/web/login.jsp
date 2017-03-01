@@ -22,7 +22,7 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/subviews/header.jsp" >
-            <jsp:param name="subtitle" value="Login"/>
+            <jsp:param name="subtitle" value="會員登入"/>
         </jsp:include>
         <div id="article">
         <%

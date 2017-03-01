@@ -17,7 +17,7 @@ and open the template in the editor.
     if(search!=null){
         list = service.getProductsByName(search);
     }else{
-        list = service.getProdcutsByType("Book");
+        list = service.getProductsByType("Book");
         search="";
     }    
 %>

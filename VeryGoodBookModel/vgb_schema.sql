@@ -92,7 +92,10 @@ INSERT INTO `vgb`.`products`
  10,'Product',0),
 (6,'施德樓ABS水彩色鉛筆組，36色', 560,
  'http://im1.book.com.tw/image/getImage?i=http://www.books.com.tw/img/N00/016/82/N000168202.jpg&v=4fc450d3&w=348&h=348',
- 10,'Product',0);
+ 10,'Product',0),
+(7,'Monami-馬卡龍六角彩桿原子筆四入組-0.7mm-黑色筆芯', 150,
+ 'http://im1.book.com.tw/image/getImage?i=http://www.books.com.tw/img/N00/073/21/N000732188.jpg&v=57d27c2d&w=348&h=348',
+ 10,'Pen',0);
 
 INSERT INTO book_detail
 (product_id, subtitle, auther_name,isbn,publish_date,publisher_id) VALUES

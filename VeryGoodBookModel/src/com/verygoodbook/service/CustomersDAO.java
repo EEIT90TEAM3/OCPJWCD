@@ -172,7 +172,6 @@ public class CustomersDAO
                 }
                 return c;
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(CustomersDAO.class.getName()).log(Level.SEVERE, "無法查詢客戶", ex);
             throw new VGBException("無法查詢客戶!", ex);

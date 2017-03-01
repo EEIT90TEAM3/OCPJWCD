@@ -25,6 +25,10 @@
         </script>
     </head>
     <body>
+        <jsp:include page="/WEB-INF/subviews/header.jsp" >
+            <jsp:param name="subtitle" value="系統錯誤"/>
+        </jsp:include>
+        <div id="article">
         <p style='font-size:80%'>執行<span style='color:darkred'><%= request.getRequestURI()%></span>時發生下列錯誤：<br/>
             <% if (exception!=null){          
                 out.println(exception.getClass().getName() + ":\t" +exception.getMessage());%>
@@ -36,4 +40,6 @@
             </span>
             <% } %>          
         </p>
+        </div>
+        <%@include  file="/WEB-INF/subviews/footer.jsp" %>
     </body

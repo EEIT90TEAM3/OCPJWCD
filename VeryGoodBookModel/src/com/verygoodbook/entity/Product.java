@@ -97,7 +97,7 @@ public class Product {
         this.description = description;
     }
     public String toString(){
-        return "Product Information:\nId : "+id+"\n"+"Name : "+name+"\n"+
+        return this.getClass().getName()+ "- Id : "+id+"\n"+"Name : "+name+"\n"+
                 "Stock : "+stock+"\n"+"Description : "+description+"\n"+
                 "UnitPrice : "+unitPrice+"\n"+"PhotoURL : "+photoUrl+"\n";
     }

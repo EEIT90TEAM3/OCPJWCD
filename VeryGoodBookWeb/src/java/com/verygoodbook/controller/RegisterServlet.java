@@ -40,10 +40,9 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<String> errors = new ArrayList<>();
-        
         //1. 取得register.jsp中的表單資料:userid, password1, password2, name
-        // email, gender, ....
-        request.setCharacterEncoding("UTF-8");
+        // email, gender, ....        
+        request.setCharacterEncoding("UTF-8");        
         String userid = request.getParameter("userid");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
@@ -56,8 +55,6 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String married = request.getParameter("married");
-        
-        
         String checkCode = request.getParameter("checkCode");
         
         //2. 檢查資料

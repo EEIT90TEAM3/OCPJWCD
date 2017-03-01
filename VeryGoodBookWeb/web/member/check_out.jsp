@@ -29,6 +29,9 @@
         <title>結帳作業</title>
     </head>
     <body>
-        <h1>結帳</h1>
+        <jsp:include page="/WEB-INF/subviews/header.jsp" />        
+        <div id="article" style="height: 75vh;width:75%;margin:auto;">
+        </div>
+        <%@include  file="/WEB-INF/subviews/footer.jsp" %>        
     </body>
 </html>

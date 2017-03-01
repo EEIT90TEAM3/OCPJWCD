@@ -46,7 +46,7 @@ and open the template in the editor.
                 for(Product p:list) {                    
             %>
             <li style='width:300px;display: inline-block;border-style: dotted dashed solid double;padding: 1ex;box-shadow: 1px 1px 3px gray'>
-                <a href='#'><img style='width:200px' src='<%= p.getPhotoUrl() %>'></a>
+                <a href='product_item.jsp?pid=<%= p.getId()%>'><img style='width:200px' src='<%= p.getPhotoUrl() %>'></a>
                 <h4><%= p.getName() %></h4>
                 <div>
                 <% if(p instanceof Book) {%>

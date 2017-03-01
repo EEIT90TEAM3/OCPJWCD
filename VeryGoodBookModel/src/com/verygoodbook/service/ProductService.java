@@ -22,9 +22,7 @@ public class ProductService {
 
     public List<Product> getProductsByType(String type) throws VGBException {
         return dao.getProductsByType(type);
-    }  
-    
-    
+    }
     
     //TODO: insert, update, delete Product
 

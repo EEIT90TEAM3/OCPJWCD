@@ -21,7 +21,7 @@ public class TestProductsDAO {
             ProductsDAO dao = new ProductsDAO();
             Product p = dao.get(1);
             System.out.println("p = " + p);
-            System.out.println(dao.getProdcutsByType("Book"));
+            //System.out.println(dao.getProdcutsByType("Book"));
         } catch (VGBException ex) {
             Logger.getLogger(TestProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -44,7 +44,8 @@ INSERT INTO publishers
 (1,'博誌文化', '新北市汐止區新台五路一段106號B棟12樓', '(02)2696-2869'),
 (2, 'PCuSER電腦人文化', null,null),
 (3, '活泉', '新北市中和區中山路二段366巷10號10樓',null),
-(4, '悅知文化','台北市松山區復興北路99號12樓','(02)2719-8811');
+(4, '悅知文化','台北市松山區復興北路99號12樓','(02)2719-8811')
+(5, '大新書局','台灣台北市大安區瑞安街256巷16號','(02)2707-3232');
 
 DROP TABLE IF EXISTS `vgb`.`products`;
 CREATE TABLE  `vgb`.`products` (
@@ -56,8 +57,9 @@ CREATE TABLE  `vgb`.`products` (
   `photo_url` varchar(120) DEFAULT NULL,
   `type` varchar(20) NOT NULL,
   `discount` int(10) unsigned NOT NULL DEFAULT '0',
+  `colors` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `vgb`.`book_detail`;
 CREATE TABLE  `vgb`.`book_detail` (
@@ -95,11 +97,26 @@ INSERT INTO `vgb`.`products`
  10,'Product',0),
 (7,'Monami-馬卡龍六角彩桿原子筆四入組-0.7mm-黑色筆芯', 150,
  'http://im1.book.com.tw/image/getImage?i=http://www.books.com.tw/img/N00/073/21/N000732188.jpg&v=57d27c2d&w=348&h=348',
- 10,'Pen',0);
+ 10,'Pen',0),
+(8, '滿點文法N4', 320,
+ 'http://im1.book.com.tw/image/getImage?i=http://www.books.com.tw/img/001/074/00/0010740048.jpg&v=5876095a&w=348&h=348',
+  5,'Book',10);
 
 INSERT INTO book_detail
 (product_id, subtitle, auther_name,isbn,publish_date,publisher_id) VALUES
 (1,'色鉛筆繪畫技法寶典', '蔥二', '9789869279949', '2015-10-30', 1), /*博誌*/
 (2,'', '飛樂鳥工作室', '9789862101315', '2016-4-21', 2), /*PCuSER電腦人文化*/
 (3,'', '飛樂鳥工作室', '4717702089610', '2015-4-18', 2), /*PCuSER電腦人文化*/
-(4,'', '崔喬喬', '9789862717141', '2016-8-31', 3); /*活泉*/
+(4,'', '崔喬喬', '9789862717141', '2016-8-31', 3),
+(8,'', ' 友松悅子,福島佐知,中村かおり', '9789863211181', '2016-11-1', 5);/*活泉*/
+
+INSERT INTO `vgb`.`products`
+(id,name,unit_price,photo_url,stock,type,discount) VALUES
+(9, '零秒思考力【行動篇】：即斷、即決、即實行的瞬間執行力', 320,
+ 'http://im2.book.com.tw/image/getImage?i=http://www.books.com.tw/img/001/074/27/0010742733.jpg&v=5881925a&w=348&h=348',
+  21,'Book',10);
+
+INSERT INTO book_detail
+(product_id, subtitle, auther_name,isbn,publish_date,publisher_id) VALUES
+(9,'ゼロ秒思考[行動編]―即断即決、即実行のトレーニング', 
+    '赤羽雄二', '9789863211181', '2017-2-6', 4);

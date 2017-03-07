@@ -32,7 +32,7 @@
             <% }%>                
             </span>
             <span style="font-size: smaller;float:right" id="welcome-span">
-                你好! ${sessionScope.member.name}
+                你好! ${not empty sessionScope.member?sessionScope.member.name:pageContext.request.remoteUser}
             </span>
             <hr>
         </div>

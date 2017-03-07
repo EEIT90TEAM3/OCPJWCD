@@ -19,9 +19,8 @@ import java.util.List;
  * @author Administrator
  */
 public class ProductsDAO implements DAOInterface<Integer, Product> {
-
     public void insert(Product p) throws VGBException {
-
+        
     }
 
     public void update(Product p) throws VGBException {
@@ -29,12 +28,12 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
     }
 
     public void delete(Product p) throws VGBException {
-
+        
     }
 
     private static final String SELECT_PRODUCT_BY_ID = "SELECT products.id, products.name,"
             + "unit_price,stock,photo_url,description,"
-            + "discount,publishers.name AS publisher_name,auther_name,isbn,publish_date,"
+            + "discount,publishers.name AS publisher_name,auther_name,isbn,publish_date,colors,"
             + "products.type "
             + "FROM products "
             + "LEFT JOIN book_detail ON products.id = book_detail.product_id "
@@ -72,6 +71,13 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
                         publisher.setName(rs.getString("publisher_name"));
                         ((Book) p).setPublisher(publisher);
                     }
+                    String colors = rs.getString("colors");
+                    if(colors!=null){
+                        String[] colorNames = colors.split(",");
+                        for(String name:colorNames){
+                            p.addColor(name);
+                        }
+                    }
                 }
                 return p;
             }
@@ -82,9 +88,10 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
     
     private static final String SELECT_PRODUCTS_BY_NAME = "SELECT "
             + "products.id, products.name,"
-            + "unit_price,photo_url,description,discount,auther_name,type "
+            + "unit_price,photo_url,description,discount,auther_name,type,publishers.id as pub_id,colors "
             + "FROM products "
             + "LEFT JOIN book_detail ON products.id = book_detail.product_id "
+            + "LEFT JOIN publishers ON book_detail.publisher_id = publishers.id "
             + "WHERE products.name LIKE ?";   
     
     public List<Product> getProductsByName(String name) throws VGBException {
@@ -116,10 +123,21 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
                     p.setUnitPrice(rs.getDouble("unit_price"));
                     p.setPhotoUrl(rs.getString("photo_url"));
                     p.setDescription(rs.getString("description"));
+                    String colors = rs.getString("colors");
+                    if(colors!=null){
+                        String[] colorNames = colors.split(",");
+                        for(String colorName:colorNames){
+                            p.addColor(colorName);
+                        }
+                    }
 
                     if (p instanceof Book) {
                         ((Book) p).setDiscount(rs.getInt("discount"));
                         ((Book) p).setAutherName(rs.getString("auther_name"));
+                        
+                        Publisher publisher = new Publisher();
+                        publisher.setId(rs.getInt("pub_id"));
+                        ((Book) p).setPublisher(publisher);                                                
                     }
                     list.add(p);
                 }
@@ -133,9 +151,10 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
 
     private static final String SELECT_PRODUCTS_BY_TYPE = "SELECT "
             + "products.id, products.name,"
-            + "unit_price,photo_url,description,discount,auther_name,type "
+            + "unit_price,photo_url,description,discount,auther_name,type,publishers.id as pub_id,colors "
             + "FROM products "
             + "LEFT JOIN book_detail ON products.id = book_detail.product_id "
+            + "LEFT JOIN publishers ON book_detail.publisher_id = publishers.id "
             + "WHERE type=?";
 
     public List<Product> getProductsByType(String type) throws VGBException {
@@ -167,10 +186,21 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
                     p.setUnitPrice(rs.getDouble("unit_price"));
                     p.setPhotoUrl(rs.getString("photo_url"));
                     p.setDescription(rs.getString("description"));
+                    String colors = rs.getString("colors");
+                    if(colors!=null){
+                        String[] colorNames = colors.split(",");
+                        for(String name:colorNames){
+                            p.addColor(name);
+                        }
+                    }
 
                     if (p instanceof Book) {
                         ((Book) p).setDiscount(rs.getInt("discount"));
                         ((Book) p).setAutherName(rs.getString("auther_name"));
+                        
+                        Publisher publisher = new Publisher();
+                        publisher.setId(rs.getInt("pub_id"));
+                        ((Book) p).setPublisher(publisher);                        
                     }
                     list.add(p);
                 }

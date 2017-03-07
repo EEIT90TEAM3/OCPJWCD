@@ -10,7 +10,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--<meta http-equiv="refresh" content ="3; url=http://edu.uuu.com.tw">-->
-    <%@include file="WEB-INF/subviews/global_js.jsp" %>    
+    <%@include file="/WEB-INF/subviews/global_js.jsp" %>    
     </head>
     <body>
         <jsp:include page="/WEB-INF/subviews/header.jsp" />        

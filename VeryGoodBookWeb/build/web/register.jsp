@@ -37,7 +37,11 @@ and open the template in the editor.
                 List<String> errors = (List<String>) request.getAttribute("errors");
                 if (errors != null) {
             %>
-            <%= errors%>
+            <ul>
+            <%for(String msg:errors){%>
+            <li><%=msg%></li>
+            <%}%>
+            </ul>
             <%}%>
             <form action='register.do' method='POST'>
                 <!--<div name='hello'>Hello</div>--> 

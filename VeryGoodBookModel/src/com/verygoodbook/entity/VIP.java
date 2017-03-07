@@ -21,11 +21,9 @@ public class VIP extends Customer {
     public VIP() {
     }
     public VIP(String id, String password, String name) {
-        // 必填
         super(id, password, name);
     }
     public VIP(String id, String password, String name, String email, char gender) {
-        // 非必填
         super(id, password, name, email, gender);
     }
     public VIP(String id, String password, String name, int discount) {

@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Administrator
  */
 public class Book extends Product {
+
     private String subtitle;
     private String autherName;
     private String isbn;
@@ -43,7 +44,6 @@ public class Book extends Product {
         this.isbn = isbn;
     }
 
-
     public Date getPublishDate() {
         return publishDate;
     }
@@ -62,9 +62,9 @@ public class Book extends Product {
 
     @Override
     public double getUnitPrice() { //取得售價
-        return super.getUnitPrice()*(100-discount)/100.0; //To change body of generated methods, choose Tools | Templates.
+        return super.getUnitPrice() * (100 - discount) / 100.0; //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public double getListPrice() {//取得定價
         return super.getUnitPrice(); //To change body of generated methods, choose Tools | Templates.
     }
@@ -81,11 +81,11 @@ public class Book extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + "售價: "+this.getUnitPrice()
-                + "\nsubtitle=" + subtitle 
-                + ", autherName=" + autherName 
-                + ", isbn=" + isbn + ", publishDate=" + publishDate 
+        return super.toString() + "售價: " + this.getUnitPrice()
+                + "\nsubtitle=" + subtitle
+                + ", autherName=" + autherName
+                + ", isbn=" + isbn + ", publishDate=" + publishDate
                 + ", publisher=" + publisher + ", discount=" + discount + '}';
     }
-    
+
 }

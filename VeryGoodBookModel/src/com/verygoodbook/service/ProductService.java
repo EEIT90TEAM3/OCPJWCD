@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.verygoodbook.service;
 
 import com.verygoodbook.entity.Product;
@@ -10,19 +14,19 @@ import java.util.List;
  * @author Administrator
  */
 public class ProductService {
-    /*代理人程式，讓使用者不要直接存取DAO*/
-    private ProductsDAO dao=new ProductsDAO();
+    private ProductsDAO dao = new ProductsDAO();
 
     public Product get(Integer id) throws VGBException {
         return dao.get(id);
     }
 
-    public List<Product> getProdcutsByType(String type) throws VGBException {
-        return dao.getProdcutsByType(type);
+    public List<Product> getProductsByType(String type) throws VGBException {
+        return dao.getProductsByType(type);
     }
-    //TODD:insert,update,delete,Product
-    public List<Product> getProductsByName(String name) throws VGBException {
-        return dao.getProdcutsByName(name);
+    
+    //TODO: insert, update, delete Product
 
+    public List<Product> getProductsByName(String name) throws VGBException {
+        return dao.getProductsByName(name);
     }
 }

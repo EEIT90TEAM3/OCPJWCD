@@ -35,18 +35,18 @@ public class Customer implements Comparable {
     private String name;
     private String password;
     private String email;
+    private Gender gender;
+
+    private Date birthday;
     private String phone;
     private String address;
     //private char gender;//MALE,FEMALE
-    private Gender gender;
     private boolean married;
-    private Date birthday;
 
     public Customer() {
     }
 
     public Customer(String id, String password, String name) {
-        
         this.id = id;
         this.name = name;
         this.password = password;
@@ -85,7 +85,7 @@ public class Customer implements Comparable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) {        
         this.name = name;
     }
 
@@ -182,15 +182,13 @@ public class Customer implements Comparable {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) throws VGBException {
-        
+    public void setBirthday(Date birthday) throws VGBException {        
         if(birthday==null || (birthday!=null && birthday.before(new Date()))){
             this.birthday = birthday;
         }else{
             System.out.println(".....");
             throw new VGBException("客戶生日日期必須小於現在時間!");
-        }
-    
+        }    
     }
 
     public static final DateFormat webDateFormat; //blank static final attribute

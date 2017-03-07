@@ -67,8 +67,7 @@ public class CustomersDAO
             Logger.getLogger(CustomersDAO.class.getName()).log(Level.SEVERE, "客戶新增失敗", ex);
             throw new VGBException("客戶新增失敗!", ex);            
         }
-    }
-    
+    }    
     
     private static final String UPDATE_SQL="UPDATE customers "
             + "SET name=?, password=?, email=?, gender=?,"
@@ -172,7 +171,6 @@ public class CustomersDAO
                 }
                 return c;
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(CustomersDAO.class.getName()).log(Level.SEVERE, "無法查詢客戶", ex);
             throw new VGBException("無法查詢客戶!", ex);

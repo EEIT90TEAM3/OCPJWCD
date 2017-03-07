@@ -1,6 +1,9 @@
 package com.verygoodbook.entity;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +15,7 @@ import java.util.Objects;
  *
  * @author Administrator
  */
-public class Product {
+public class Product extends Object{
     /**
      * 產品編號，由DB新增時自動給號，pkey
      */
@@ -22,9 +25,29 @@ public class Product {
     /**
      * 圖片網址
      */
-    private String photoUrl; 
+    private String photoUrl;     
+    private String description;     
+    private String color;
     
-    private String description; 
+    private Set<String> colors;
+
+    public Set<String> getColors() {
+        if(colors==null) return null;
+        return Collections.unmodifiableSet(colors);
+    }
+
+    public void addColor(String color) {
+        if(colors==null) colors = new HashSet<>();
+        colors.add(color);
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }    
     
     /**
      * 定價即售價
@@ -35,8 +58,9 @@ public class Product {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + this.id;
+        int hash = 3;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.color);
         return hash;
     }
 
@@ -57,6 +81,8 @@ public class Product {
         }
         return true;
     }
+
+    
 
     
     
@@ -97,8 +123,9 @@ public class Product {
         this.description = description;
     }
     public String toString(){
-        return "Product Information:\nId : "+id+"\n"+"Name : "+name+"\n"+
+        return this.getClass().getName()+ "- Id : "+id+"\n"+"Name : "+name+"\n"+
                 "Stock : "+stock+"\n"+"Description : "+description+"\n"+
+                (this.colors==null?"":"colors:"+this.colors+"-"+ this.color+'\n') + 
                 "UnitPrice : "+unitPrice+"\n"+"PhotoURL : "+photoUrl+"\n";
     }
 

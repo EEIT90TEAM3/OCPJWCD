@@ -10,5 +10,5 @@ package com.verygoodbook.entity;
  * @author Administrator
  */
 public enum Gender {
-    Male,Female
+    MALE,FEMALE;    
 }

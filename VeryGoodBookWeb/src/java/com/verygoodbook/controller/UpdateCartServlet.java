@@ -37,26 +37,28 @@ public class UpdateCartServlet extends HttpServlet {
         //0.從session取得cart
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
         if (cart != null && cart.size() > 0) {
-            Set<Product> trash = new HashSet<>();
+            Set<Product> trash = new HashSet<>();//建立trash作為[待刪除品項]的暫存區
             for (Product p : cart.getProductsSet()) {
                 //1. 取得form data: delete_pid_x, quantity_pid_x
                 String delete = request.getParameter("delete_pid_"+p.getId());
-                if(delete==null){
-                    //2. 檢查
+                //2. 檢查是否刪除商品
+                if(delete==null){//否
+                    //檢查要修改的數量
                     String quantity = request.getParameter("quantity_pid_"+p.getId());
                     if(quantity!=null && quantity.matches("\\d+")){
-                    //3. 商業邏輯
+                    //3.1 商業邏輯: 修改cart中的商品數量
                         int q = Integer.parseInt(quantity);
                         cart.update(p, q);
                     }
                 }else{
-                    trash.add(p);
+                    //3.2 商業邏輯: 刪除cart中的商品
+                    trash.add(p);//先移入垃圾桶
                     //cart.remove(p);
                 }
             }
             
-            for(Product p:trash){
-                cart.remove(p);
+            for(Product p:trash){//依據垃圾桶中暫存的商品來移除cart中應刪除的品項
+                cart.remove(p); 
             }
         }
 

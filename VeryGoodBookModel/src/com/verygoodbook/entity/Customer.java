@@ -62,7 +62,9 @@ public class Customer implements Comparable {
 
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", phone=" + phone + ", address=" + address + ", gender=" + gender + ", married=" + married + ", birthday=" + birthday + '}';
+        return "Customer{" + "id=" + id + ", name=" + name 
+                + ", password=" + password + ", email=" + email 
+                + ", phone=" + phone + ", address=" + address + ", gender=" + gender + ", married=" + married + ", birthday=" + birthday + '}';
     }
 
     public boolean checkId(String id) {
@@ -125,14 +127,13 @@ public class Customer implements Comparable {
 //    }
     
     /**     
-     * @return
-     * @deprecated
+     * @return     
      */        
     public char getGender() {
         switch (this.gender) {
-            case Male:
+            case MALE:
                 return MALE;
-            case Female:
+            case FEMALE:
                 return FEMALE;
         }
         return MALE;
@@ -145,12 +146,11 @@ public class Customer implements Comparable {
     
     /**
      *  replaced by setGender(Gender.Male) or setGender(Gender.Female)
-     * @param gender
-     * @deprecated
+     * @param gender     
      */    
     public void setGender(char gender) {
         if(gender == FEMALE || gender == MALE){
-            this.gender = gender == FEMALE ? Gender.Female : Gender.Male;
+            this.gender = gender == FEMALE ? Gender.FEMALE : Gender.MALE;
         }else{
             try {
                 throw new VGBException("性別資料不正確");

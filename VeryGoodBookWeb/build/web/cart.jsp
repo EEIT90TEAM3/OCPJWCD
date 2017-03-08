@@ -77,9 +77,13 @@
                 <%} else {%>
                 <p>查無購物車!</p>
                 <%}%>
-                <input type='button' value="繼續購物" onclick="goShopping()">
+                <input type='button' value="繼續購物" onclick="goShopping()">                
+                <%if (cart != null && cart.size() > 0) {%>
+                <span style="float: right">
                 <input type='submit' value="修改購物車">
                 <input type='button' value="我要結帳" onclick="checkOut()">
+                </span>
+                <%}%>
             </form>
         </div>
         <%@include  file="/WEB-INF/subviews/footer.jsp" %>

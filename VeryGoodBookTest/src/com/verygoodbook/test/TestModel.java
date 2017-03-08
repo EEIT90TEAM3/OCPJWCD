@@ -84,6 +84,6 @@ public class TestModel {
         p2.setId(1);
         System.out.println(p1==p2);
         System.out.println(p1.equals(p2));//without override equals method
-        System.out.println(Gender.Male);
+        System.out.println(Gender.MALE);
     }
 }

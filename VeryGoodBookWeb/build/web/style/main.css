@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2017/3/8, 上午 09:10:58
+    Author     : Administrator
+*/
+body{background-color: gainsboro}
+/* about link */
+a{text-decoration: none}
+a:link {color: red;}
+a:visited {color: #333;}
+a:hover {background-color: whitesmoke;}
+a:active {color: blue;}
+
+#aside{width:12.2%; float:left}
+#article{min-height: 75vh;width:75%;min-width: 450px;padding: 1ex;margin:auto;background:white}
+#footer{clear: both}
+

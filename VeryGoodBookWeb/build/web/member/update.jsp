@@ -34,7 +34,7 @@ and open the template in the editor.
     </head>
     <body>
         <jsp:include page="/WEB-INF/subviews/header.jsp" >
-            <jsp:param name="subtitle" value="${title}"/>
+            <jsp:param name="subtitle" value="會員修改"/>
         </jsp:include>
         <div id="article">
             <%

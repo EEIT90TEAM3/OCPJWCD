@@ -26,10 +26,7 @@ and open the template in the editor.
         <title>產品清單</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
-        <%@include file="/WEB-INF/subviews/global_js.jsp" %>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <%@include file="/WEB-INF/subviews/global_js.jsp" %>        
         <script>
             $( function() {
                 $( "#product_item" ).dialog({
@@ -77,14 +74,19 @@ and open the template in the editor.
                 location.href=urlPath;                
             }
             
-        </script>
+        </script>        
     </head>
     <body>
         <jsp:include page="/WEB-INF/subviews/header.jsp" >
             <jsp:param name="subtitle" value="產品清單"/>
         </jsp:include>
-        <div id="article">
+        <div id="aside" style="float:left">
+            <a href="<%=request.getRequestURI()%>?type=Book">我要買書</a><br>
+            <a href="<%=request.getRequestURI()%>?type=Pen&type=Product">文具/其他</a>
+        </div>
+        <div id="article" style="float:left;">
         <form method="POST" action='products_list.jsp'>
+            <label>查詢: </label>
             <input type='search' placeholder="請輸入完整產品編號或部分名稱..." style='width:20em' 
                    name='search' value="<%= search %>">
             <input type='submit' value="查詢">                
@@ -96,14 +98,14 @@ and open the template in the editor.
             if(list!=null && list.size()>0){
                 for(Product p:list) {                    
             %>
-            <li style='width:300px;display: inline-block;border-style: dotted dashed solid double;padding: 1ex;box-shadow: 1px 1px 3px gray'>
+            <li style='display:inline-block;width:15em;border: solid lightblue 1px;padding: 1ex;box-shadow: 1px 1px 3px gray'>
                 <a href='javascript:getProduct(<%= p.getId()%>)'>
                     <img style='width:200px' src='<%= p.getPhotoUrl() %>'>
                 </a>                
-                <h4>
+                <h5>
 <%--                    <span style="font-size: smaller">
                         No.<%= String.format("%05d", p.getId()) %>
-                    </span>--%> <%= p.getName() %></h4>
+                    </span>--%> <%= p.getName() %></h5>
                 <div>
                 <% if(p instanceof Book) {%>
                     <span>作者：<%= ((Book)p).getAutherName() %></span><br>
@@ -116,7 +118,7 @@ and open the template in the editor.
                 <span><%= p.getUnitPrice() %>元</span>
                 <span>
                     <a href='javascript:addToCart(<%= p.getId()%>)'>
-                        <img alt="add to cart" src='images/cart.png'>
+                        <img style="padding-top: 1ex" alt="add to cart" src='images/cart.png'>
                     </a>
                 </span>
                 </div>                

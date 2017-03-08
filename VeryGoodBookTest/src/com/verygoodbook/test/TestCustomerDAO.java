@@ -26,11 +26,11 @@ public class TestCustomerDAO {
 //        }         
         
         try {
-            Customer test = new Customer("A123456770", "123456", "王武", "five.wang@gmail.com", Customer.MALE);            
+            Customer test = new Customer("A123456789", "123456", "張三豐", "sammuel.chang@gmail.com", Customer.MALE);            
             CustomersDAO dao = new CustomersDAO();
-            dao.insert(test);
+           //dao.insert(test);
             
-            Customer c = dao.get("A123456770");
+            Customer c = dao.get("A123456789");
             System.out.println("Hello, Answer = " + c);
             
             c.setPhone("2222-3333");
@@ -39,7 +39,7 @@ public class TestCustomerDAO {
             List<Customer> list = dao.getCustomerListByName("王");
             System.out.println("list:" + list);
             
-            dao.delete(c);
+            //dao.delete(c);
             list = dao.getCustomerListByName("王");
             System.out.println("list:" + list);
         } catch (VGBException ex) {

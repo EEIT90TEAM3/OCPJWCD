@@ -44,7 +44,7 @@ INSERT INTO publishers
 (1,'博誌文化', '新北市汐止區新台五路一段106號B棟12樓', '(02)2696-2869'),
 (2, 'PCuSER電腦人文化', null,null),
 (3, '活泉', '新北市中和區中山路二段366巷10號10樓',null),
-(4, '悅知文化','台北市松山區復興北路99號12樓','(02)2719-8811')
+(4, '悅知文化','台北市松山區復興北路99號12樓','(02)2719-8811'),
 (5, '大新書局','台灣台北市大安區瑞安街256巷16號','(02)2707-3232');
 
 DROP TABLE IF EXISTS `vgb`.`products`;
@@ -120,3 +120,37 @@ INSERT INTO book_detail
 (product_id, subtitle, auther_name,isbn,publish_date,publisher_id) VALUES
 (9,'ゼロ秒思考[行動編]―即断即決、即実行のトレーニング', 
     '赤羽雄二', '9789863211181', '2017-2-6', 4);
+
+DROP TABLE IF EXISTS `vgb`.`orders`;
+CREATE TABLE  `vgb`.`orders` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` char(10) NOT NULL,
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `payment_type` int(10) unsigned NOT NULL,
+  `payment_fee` double NOT NULL DEFAULT '0',
+  `payment_note` varchar(100) DEFAULT NULL,
+  `shipping_type` int(10) unsigned NOT NULL,
+  `shipping_fee` double NOT NULL DEFAULT '0',
+  `shipping_note` varchar(100) DEFAULT NULL,
+  `receiver_name` varchar(20) NOT NULL,
+  `receiver_email` varchar(40) NOT NULL,
+  `receiver_address` varchar(100) NOT NULL,
+  `receiver_phone` varchar(20) NOT NULL,
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_orders_customers` (`customer_id`),
+  CONSTRAINT `FK_orders_customers` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `vgb`.`order_items`;
+CREATE TABLE  `vgb`.`order_items` (
+  `order_id` int(10) unsigned NOT NULL,
+  `product_id` int(10) unsigned NOT NULL,
+  `color` varchar(20) NOT NULL,
+  `price` double NOT NULL,
+  `quantity` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`order_id`,`product_id`,`color`),
+  KEY `FK_order_items_products` (`product_id`),
+  CONSTRAINT `FK_order_items_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  CONSTRAINT `FK_order_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 public class RDBConnection {
 
     private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String url = "jdbc:mysql://localhost:3306/vgb?characterEncoding=utf-8";
+    private static final String url = "jdbc:mysql://localhost:3306/vgb?zeroDateTimeBehavior=convertToNull";
     private static final String userid = "root";
     private static final String pwd = "1234";
     public static final int DUPLICATE_ENTRY_ERROR_CODE = 1062;

@@ -52,8 +52,8 @@
                                 <td></td><td></td>
                             <%}%>
                             <td><%= p.getUnitPrice()%></td>
-                            <td><input type='number' name='quantity_pid_<%= p.getId()%>' value='<%= cart.getQuantity(p)%>' min='1' max='<%= p.getStock()%>' ></td>
-                            <td><input type='checkbox' name='delete_pid_<%= p.getId()%>'></td>   
+                            <td><input type='number' name='quantity_pid_<%= p.getId()%><%= p.getColor()!=null?"_"+p.getColor():"" %>' value='<%= cart.getQuantity(p)%>' min='1' max='<%= p.getStock()%>' ></td>
+                            <td><input type='checkbox' name='delete_pid_<%= p.getId()%><%= p.getColor()!=null?"_"+p.getColor():"" %>'></td>   
                         </tr>                    
                         <%}%>
                     </tbody>

@@ -5,7 +5,10 @@
  */
 package com.verygoodbook.utils;
 
-import com.verygoodbook.exception.VGBException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -16,6 +19,12 @@ public class VeryGoodBookUitilities {
     private static final String NUMBERS = "0123456789";
     private static final String FIRSTCHAR_NUMBERS = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
     private static final String WEIGHTS = "19876543211";    
+    
+    public static final DateFormat webDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+    public static final DateFormat webDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public static final DateFormat webTimeFormat = new SimpleDateFormat("hh:mm");
+    public static final NumberFormat webPriceFormat = new DecimalFormat("#####.##");
+    
 
     public static boolean checkROCId(String id){
         //身分證字號檢核

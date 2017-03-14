@@ -3,6 +3,7 @@
     Created on : 2017/2/20, 下午 03:42:09
     Author     : Administrator
 --%>
+<%@page import="java.util.List"%>
 <%@page import="com.verygoodbook.entity.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -16,6 +17,7 @@
         member = (Customer) session.getAttribute("member");
         if (member == null) {
             //若無已登入的會員，redirect到login.jsp強迫先登入後才能繼續執行
+            //登入後跳到登入頁面的前一個頁面
             session.setAttribute("previous.page", url);
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
@@ -28,6 +30,8 @@
         response.sendRedirect(request.getContextPath() + "/cart.jsp");
         return;
     }
+    
+    cart.setMember(member);
 %>
 <!DOCTYPE html>
 <html>
@@ -41,7 +45,17 @@
             <jsp:param name="subtitle" value="結帳作業"/>
         </jsp:include>
         <div id="article">
-            <form action="check_out.do" method="POST">
+            <%
+                List<String> errors = (List<String>) request.getAttribute("errors");
+                if (errors != null) {
+            %>
+            <ul>
+            <%for(String msg:errors){%>
+            <li><%=msg%></li>
+            <%}%>
+            </ul>
+            <%}%>            
+            <form action="<%= request.getContextPath() %>/member/check_out.do" method="POST">
             <table border='1'>
                 <caption>購物車明細</caption>
                 <thead>
@@ -90,21 +104,57 @@
                         <td colspan="7">
                             <div style='width:45%;float: left;margin: 0'>
                             <label for='payment_type'>付款方式: </label>
-                            <select id='payment_type' name='paymentType' required>
+                            <select id='payment_type' name='paymentType' required onchange='paymentTypeChange()'>
                                 <option value=''>請選擇</option>
-                                <% for(PaymentType pType:PaymentType.values()){%>
-                                <option value='<%= pType.ordinal() %>'><%= pType %></option>
+                                <% for(PaymentType pType:PaymentType.values()){%>                                
+                                <option value='<%= pType.ordinal() %>' 
+                                    <%= request.getParameter("paymentType")!=null 
+                                        && request.getParameter("paymentType").equals(String.valueOf(pType.ordinal()))?"selected":""  %>>
+                                    <%= pType %>
+                                </option>
                                 <%} %>
                             </select>
+                            <script>
+                                //JSON
+                                var paymentArray=[
+                                    <% for(int i=0; i<PaymentType.values().length; i++) {%>
+                                    {"description":'<%= PaymentType.values()[i].toString() %>',
+                                        "shippingType":{"ordinal":<%= PaymentType.values()[i].getShippingType().ordinal() %>,
+                                        "description":'<%= PaymentType.values()[i].getShippingType() %>'}}
+                                    <%= i<(PaymentType.values().length-1) ?",":"" %>
+                                    <%}%>
+                                ];
+                                
+                                function paymentTypeChange(){                                    
+                                   // alert($("#payment_type").prop('selectedIndex'));
+                                   // alert($("#payment_type").val());
+                                    var paymentIndex = $("#payment_type").val();
+                                    $("#shipping_type").empty();
+                                    $("#shipping_type").append("<option value=''>請選擇</option>");
+                                    if(paymentIndex){
+                                        //請參考上面JSON的定義
+                                        var optionStr = "<option value='"
+                                                + paymentArray[paymentIndex].shippingType.ordinal + "' selected>"
+                                                + paymentArray[paymentIndex].shippingType.description +"</option>";
+                                        $("#shipping_type").append(optionStr);
+                                    }
+                                }
+                                $(function(){
+                                    paymentTypeChange();                                
+                                });
+                            </script>
                             </div>
                             <div style='width:45%;float: right'>
                             <label for='shipping_type'>貨運方式: </label>
-                            <select id='shipping_type' name='shippingType' required>
+                            <select id='shipping_type' name='shippingType'>
                                 <option value=''>請選擇</option>
-                                <% for(ShippingType sType:ShippingType.values()){%>
-                                <option value='<%= sType.ordinal() %>'><%= sType %></option>
-                                <%} %>
-                                
+                                <%-- for(ShippingType sType:ShippingType.values()){%>
+                                <option value='<%= sType.ordinal() %>'
+                                        <%= request.getParameter("shippingType")!=null 
+                                        && request.getParameter("shippingType").equals(String.valueOf(sType.ordinal()))?"selected":""  %>>
+                                    <%= sType %>
+                                </option>
+                                <%} --%>                                
                             </select>
                             </div>
                         </td>
@@ -124,13 +174,13 @@
                                 <fieldset>
                                     <legend>收件人 <input type='button' value="複製" onclick="copyData()"></legend>
                                     <label for='receiver_name'>姓名: </label>
-                                    <input id='receiver_name' name='name' required><br>
+                                    <input id='receiver_name' name='name' required value="${param.name}"><br>
                                     <label for='receiver_email'>電郵: </label>
-                                    <input id='receiver_email' name='email' required><br>
+                                    <input id='receiver_email' name='email' required value="${param.email}"><br>
                                     <label for='receiver_phone'>電話: </label>
-                                    <input id='receiver_phone' name='phone' required><br>
+                                    <input id='receiver_phone' name='phone' required  value="${param.phone}"><br>
                                     <label for='receiver_address'>地址: </label>
-                                    <input id='receiver_address' name='address' required><br>
+                                    <input id='receiver_address' name='address' required value="${param.address}"><br>
                                 </fieldset>
                                 
                             </div>                            

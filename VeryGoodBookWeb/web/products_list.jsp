@@ -12,13 +12,16 @@ and open the template in the editor.
 <%
     request.setCharacterEncoding("UTF-8");
     String search = request.getParameter("search");
+    String[] types = request.getParameterValues("type");
+    
     ProductService service = new ProductService();
     List<Product> list = null;    
     if(search!=null){
         list = service.getProductsByName(search);
+    }else if(types!=null && types.length >0){        
+        list = service.getProductsByType(types);        
     }else{
-        list = service.getProductsByType("Book");
-        search="";
+        list = service.getProductsByType("Book");        
     }    
 %>
 <html>
@@ -55,13 +58,16 @@ and open the template in the editor.
                 $("#product_item" ).dialog("open");                
             }            
             
-            function addProductToCart(pid){
+            function addProductToCart(pid, color_selecter){
                 var quantity = $("#quantity_"+pid).val();
                 if(!quantity){
                     quantity=1;
-                }                
-                var color = $("#thecolor_"+pid).val();
-                //alert(color);                
+                }                                
+                var color;
+                if(color_selecter){   
+                    color= $("#"+color_selecter+pid).val();
+                    alert(color);           
+                }
                 addToCart(pid, quantity, color)
             }
             
@@ -88,7 +94,7 @@ and open the template in the editor.
         <form method="POST" action='products_list.jsp'>
             <label>查詢: </label>
             <input type='search' placeholder="請輸入完整產品編號或部分名稱..." style='width:20em' 
-                   name='search' value="<%= search %>">
+                   name='search' value="${param.search}">
             <input type='submit' value="查詢">                
         </form>
         <hr>
@@ -104,8 +110,8 @@ and open the template in the editor.
                 </a>                
                 <h5>
 <%--                    <span style="font-size: smaller">
-                        No.<%= String.format("%05d", p.getId()) %>
-                    </span>--%> <%= p.getName() %></h5>
+                                No.<%= String.format("%05d", p.getId()) %></span>--%> 
+                    <%= p.getName() %></h5>
                 <div>
                 <% if(p instanceof Book) {%>
                     <span>作者：<%= ((Book)p).getAutherName() %></span><br>
@@ -116,8 +122,19 @@ and open the template in the editor.
                     <span>優惠價：<%= discount %>折,</span> 
                 <%}%>                            
                 <span><%= p.getUnitPrice() %>元</span>
+                <% if (p.getColors() != null && p.getColors().size() > 0) {%>
                 <span>
-                    <a href='javascript:addToCart(<%= p.getId()%>)'>
+                    <label for='thiscolor_<%= p.getId()%>'>顏色:</label>                
+                    <select id='thiscolor_<%= p.getId()%>' name='color' required>
+                        <option value=''>請選擇...</option>
+                        <%  for (String colorName : p.getColors()) { %>
+                        <option value='<%=colorName%>'><%=colorName%></option>
+                        <%}%>
+                    </select> 
+                </span>
+                <%}%>                
+                <span>
+                    <a href='javascript:addProductToCart(<%= p.getId()%>, "thiscolor_")'>
                         <img style="padding-top: 1ex" alt="add to cart" src='images/cart.png'>
                     </a>
                 </span>

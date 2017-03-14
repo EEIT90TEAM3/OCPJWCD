@@ -112,14 +112,13 @@ INSERT INTO book_detail
 
 INSERT INTO `vgb`.`products`
 (id,name,unit_price,photo_url,stock,type,discount) VALUES
-(9, '零秒思考力【行動篇】：即斷、即決、即實行的瞬間執行力', 320,
- 'http://im2.book.com.tw/image/getImage?i=http://www.books.com.tw/img/001/074/27/0010742733.jpg&v=5881925a&w=348&h=348',
+(9, '零秒思考力【行動篇】：即斷、即決、即實行的瞬間執行力', 320, 'http://im2.book.com.tw/image/getImage?i=http://www.books.com.tw/img/001/074/27/0010742733.jpg&v=5881925a&w=348&h=348',
   21,'Book',10);
 
 INSERT INTO book_detail
 (product_id, subtitle, auther_name,isbn,publish_date,publisher_id) VALUES
-(9,'ゼロ秒思考[行動編]―即断即決、即実行のトレーニング', 
-    '赤羽雄二', '9789863211181', '2017-2-6', 4);
+(9,'ゼロ秒思考[行動編]―即断即決、即実行のトレーニング', '赤羽雄二', '9789863211181', '2017-2-6', 4);
+
 
 DROP TABLE IF EXISTS `vgb`.`orders`;
 CREATE TABLE  `vgb`.`orders` (
@@ -146,7 +145,7 @@ DROP TABLE IF EXISTS `vgb`.`order_items`;
 CREATE TABLE  `vgb`.`order_items` (
   `order_id` int(10) unsigned NOT NULL,
   `product_id` int(10) unsigned NOT NULL,
-  `color` varchar(20) NOT NULL,
+  `color` varchar(20) NOT NULL DEFAULT '',
   `price` double NOT NULL,
   `quantity` int(10) unsigned NOT NULL,
   PRIMARY KEY (`order_id`,`product_id`,`color`),
@@ -154,3 +153,4 @@ CREATE TABLE  `vgb`.`order_items` (
   CONSTRAINT `FK_order_items_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   CONSTRAINT `FK_order_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

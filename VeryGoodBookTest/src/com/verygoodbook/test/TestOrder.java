@@ -13,7 +13,6 @@ import com.verygoodbook.entity.ShippingType;
 import com.verygoodbook.entity.ShoppingCart;
 import com.verygoodbook.exception.VGBException;
 import com.verygoodbook.service.CustomerService;
-import com.verygoodbook.service.OrdersDAO;
 import com.verygoodbook.service.ProductService;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,7 +42,7 @@ public class TestOrder {
             cart1.add(p1, 1);
             cart1.add(p1, 1);
 
-            //System.out.println("cart1 data: " + cart1);
+            System.out.println("cart1 data: " + cart1);
 
             CustomerService custService = new CustomerService();
 //            Customer customer = custService.login("A123456789", "123456");
@@ -52,7 +51,7 @@ public class TestOrder {
 //            System.out.println("cart1: " + cart1);
             
             Customer vip = custService.login("A223456781", "123456");
-            //System.out.println("vip = " + vip);
+            System.out.println("vip = " + vip);
 
             ShoppingCart cart2 = new ShoppingCart();
             cart2.add(p2, 1);
@@ -61,27 +60,19 @@ public class TestOrder {
             cart2.add(p1, 1);
             cart2.add(p1, 1);
             cart2.setMember(vip);
-            //System.out.println("cart2: " + cart2);
+            System.out.println("cart2: " + cart2);
             
             Order order1 = new Order();
             order1.setCustomer(vip);
             order1.add(cart2);
-            order1.setPaymentType(PaymentType.ATM);
-            order1.setPaymentFee(PaymentType.ATM.getFee());
-            order1.setShippingType(ShippingType.HOME);
-            order1.setShippingFee(ShippingType.HOME.getFee());
-            order1.setReceiverName(vip.getName());
-            order1.setReceiverEmail(vip.getEmail());
-            order1.setReceiverAddress(vip.getAddress());
-            order1.setReceiverPhone(vip.getPhone());
-            System.out.println(order1);
-             
-            OrdersDAO dao=new OrdersDAO();
-            dao.insert(order1);
+            order1.setPaymentType(PaymentType.FACE);
+            order1.setPaymentFee(PaymentType.FACE.getFee());
+            order1.setShippingType(ShippingType.FACE);
+            order1.setShippingFee(ShippingType.FACE.getFee());
             System.out.println(order1);
             
-            Order order2=dao.get(10);
-            System.out.println("order2:"+order2);
+            
+
         } catch (VGBException ex) {
             Logger.getLogger(TestOrder.class.getName()).log(Level.SEVERE, null, ex);
         }

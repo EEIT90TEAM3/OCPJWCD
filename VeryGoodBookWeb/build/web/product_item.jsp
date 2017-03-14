@@ -27,7 +27,6 @@
                     id = Integer.parseInt(pid);
                 }
                 ProductService service = new ProductService();
-                //service.get(id)在service宣告的類別是product物件
                 Product p = service.get(id);
             %>
 
@@ -43,7 +42,6 @@
             <%}%>                            
             <span><%= p.getUnitPrice()%>元 
                 <input id='quantity_<%= p.getId()%>' type="number" min='1' max='<%= p.getStock()%>'>
-                <!--加入購物車-->
                 <a href='javascript:addToCart(<%= p.getId()%>)'>
                     <img alt="add to cart" src='images/cart.png'>
                 </a>

@@ -40,11 +40,11 @@ public class UpdateCartServlet extends HttpServlet {
             Set<Product> trash = new HashSet<>();//建立trash作為[待刪除品項]的暫存區
             for (Product p : cart.getProductsSet()) {
                 //1. 取得form data: delete_pid_x, quantity_pid_x
-                String delete = request.getParameter("delete_pid_"+p.getId());
+                String delete = request.getParameter("delete_pid_"+p.getId()+(p.getColor()==null?"":"_"+p.getColor()));
                 //2. 檢查是否刪除商品
                 if(delete==null){//否
                     //檢查要修改的數量
-                    String quantity = request.getParameter("quantity_pid_"+p.getId());
+                    String quantity = request.getParameter("quantity_pid_"+p.getId()+(p.getColor()==null?"":"_"+p.getColor()));
                     if(quantity!=null && quantity.matches("\\d+")){
                     //3.1 商業邏輯: 修改cart中的商品數量
                         int q = Integer.parseInt(quantity);

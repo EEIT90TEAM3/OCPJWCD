@@ -22,7 +22,7 @@ public class Order {
     private String receiverAddress;
     private String receiverPhone;
 
-    private int status;
+    private int status; //0-新訂單, 1....
 
     private double totalAmount;
     private Set<OrderItem> orderItemSet=new HashSet<>();
@@ -183,6 +183,15 @@ public class Order {
             return totalAmount;
         }
     }
+    
+    public static final double MAX_AMOUNT_WITHOUT_FEE = 1000;
+    public double getTotalAmountWithFee() {
+        if(getTotalAmount()<MAX_AMOUNT_WITHOUT_FEE){
+            return getTotalAmount() + getPaymentFee() + getShippingFee();
+        }else{
+            return getTotalAmount();
+        }
+    }    
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;

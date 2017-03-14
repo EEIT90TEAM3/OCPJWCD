@@ -39,7 +39,8 @@
         <% if (p.getColors() != null && p.getColors().size() > 0) {%>
         <span>
             <label for='thecolor_<%= p.getId()%>'>顏色:</label>                
-            <select id='thecolor_<%= p.getId()%>' name='color'>
+            <select id='thecolor_<%= p.getId()%>' name='color' required>
+                <option value=''>請選擇...</option>
                 <%  for (String colorName : p.getColors()) { %>
                 <option value='<%=colorName%>'><%=colorName%></option>
                 <%}%>
@@ -48,7 +49,7 @@
         <%}%>    
         <label for='quantity_<%= p.getId()%>'>數量:</label>
         <input id='quantity_<%= p.getId()%>' type="number" min='1' max='<%= p.getStock()%>' value='1'>
-        <a href='javascript:addProductToCart(<%= p.getId()%>)'>
+        <a href='javascript:addProductToCart(<%= p.getId()%>, "thecolor_")'>
             <img alt="add to cart" src='images/cart.png'>
         </a>
     </div>

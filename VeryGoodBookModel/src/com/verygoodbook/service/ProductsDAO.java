@@ -88,10 +88,10 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
     
     private static final String SELECT_PRODUCTS_BY_NAME = "SELECT "
             + "products.id, products.name,"
-            + "unit_price,photo_url,description,discount,auther_name,type,publishers.id as pub_id,colors "
+            + "unit_price,photo_url,description,discount,auther_name,type,colors "//,publishers.id as pub_id "
             + "FROM products "
             + "LEFT JOIN book_detail ON products.id = book_detail.product_id "
-            + "LEFT JOIN publishers ON book_detail.publisher_id = publishers.id "
+            //+ "LEFT JOIN publishers ON book_detail.publisher_id = publishers.id "
             + "WHERE products.name LIKE ?";   
     
     public List<Product> getProductsByName(String name) throws VGBException {
@@ -135,9 +135,9 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
                         ((Book) p).setDiscount(rs.getInt("discount"));
                         ((Book) p).setAutherName(rs.getString("auther_name"));
                         
-                        Publisher publisher = new Publisher();
-                        publisher.setId(rs.getInt("pub_id"));
-                        ((Book) p).setPublisher(publisher);                                                
+//                        Publisher publisher = new Publisher();
+//                        publisher.setId(rs.getInt("pub_id"));
+//                        ((Book) p).setPublisher(publisher);                                                
                     }
                     list.add(p);
                 }
@@ -151,10 +151,10 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
 
     private static final String SELECT_PRODUCTS_BY_TYPE = "SELECT "
             + "products.id, products.name,"
-            + "unit_price,photo_url,description,discount,auther_name,type,publishers.id as pub_id,colors "
+            + "unit_price,photo_url,description,discount,auther_name,type,colors " //,publishers.id as pub_id "
             + "FROM products "
             + "LEFT JOIN book_detail ON products.id = book_detail.product_id "
-            + "LEFT JOIN publishers ON book_detail.publisher_id = publishers.id "
+            //+ "LEFT JOIN publishers ON book_detail.publisher_id = publishers.id "
             + "WHERE type=?";
 
     public List<Product> getProductsByType(String type) throws VGBException {
@@ -198,9 +198,9 @@ public class ProductsDAO implements DAOInterface<Integer, Product> {
                         ((Book) p).setDiscount(rs.getInt("discount"));
                         ((Book) p).setAutherName(rs.getString("auther_name"));
                         
-                        Publisher publisher = new Publisher();
-                        publisher.setId(rs.getInt("pub_id"));
-                        ((Book) p).setPublisher(publisher);                        
+//                        Publisher publisher = new Publisher();
+//                        publisher.setId(rs.getInt("pub_id"));
+//                        ((Book) p).setPublisher(publisher);                        
                     }
                     list.add(p);
                 }

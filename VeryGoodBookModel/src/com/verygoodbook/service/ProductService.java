@@ -7,7 +7,10 @@ package com.verygoodbook.service;
 
 import com.verygoodbook.entity.Product;
 import com.verygoodbook.exception.VGBException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -20,8 +23,17 @@ public class ProductService {
         return dao.get(id);
     }
 
-    public List<Product> getProductsByType(String type) throws VGBException {
-        return dao.getProductsByType(type);
+    public List<Product> getProductsByType(String... types) throws VGBException {
+        Set<Product> productsSet = new HashSet<>();
+        if(types!=null && types.length>0){
+            for(String type:types){
+                productsSet.addAll(dao.getProductsByType(type));
+            }
+            
+            return new ArrayList<>(productsSet);
+        }
+        return null;
+        
     }
     
     //TODO: insert, update, delete Product
